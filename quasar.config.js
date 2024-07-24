@@ -50,19 +50,6 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
         node: 'node20',
-        env: {
-          VUE_ROUTER_MODE: process.env.VUE_ROUTER_MODE || undefined,
-          DEBUGGING: process.env.NODE_ENV !== "production",
-          APP_VERSION: PACKAGE.version,
-          APP_ID: process.env.APP_ID || "1:64042833055:web:87faa3475c7c8ac2fd3eaa",
-          API_KEY: process.env.API_KEY || "AIzaSyBGqibjGqhgkliJJytKCHM_UQBrmFqtmD4",
-          AUTH_DOMAIN: process.env.AUTH_DOMAIN || "quierobajarmiplan-dev.firebaseapp.com",
-          PROJECT_ID: process.env.PROJECT_ID || "quierobajarmiplan-dev",
-          STORAGE_BUCKET: process.env.STORAGE_BUCKET || "quierobajarmiplan-dev.appspot.com",
-          DATABASE_URL: process.env.DATABASE_URL || "https://quierobajarmiplan-dev.firebaseio.com",
-          MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID || "64042833055",
-          MEASUREMENT_ID: process.env.MEASUREMENT_ID || "G-HCTZGZ3B4H",
-        },
   
       },
 
@@ -75,7 +62,7 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      // env: {},
+      env: {},
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
