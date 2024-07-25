@@ -1,37 +1,23 @@
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
-import 'firebase/analytics';
-import 'firebase/firestore';
-import 'firebase/functions';
-
+import { initializeApp } from "firebase/app";
+import { getAnalytics, logEvent } from "firebase/analytics";
 
 // firebase init - add your own config here
-export const config = {
+const firebaseConfig = {
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
     projectId: process.env.PROJECT_ID,
-    databaseURL: process.env.DATABASE_URL,
     storageBucket: process.env.STORAGE_BUCKET,
     appId: process.env.APP_ID,
     messagingSenderId: process.env.MESSAGING_SENDER_ID,
     measurementId: process.env.MEASUREMENT_ID,
-}
-firebase.initializeApp(config);
+};
 
-const analytics = firebase.analytics();
-const firestore = firebase.firestore()
-const database = firebase.database();
-const auth = firebase.auth();
-const functions = firebase.functions();
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
 
-// export utils/refs
 export {
-    auth,
-    database,
-    firestore,
-    functions,
+    app,
     analytics
 }
-

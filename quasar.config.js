@@ -12,6 +12,7 @@
 const { configure } = require('quasar/wrappers');
 const PACKAGE = require("./package.json");
 
+require('dotenv').config({ override: true });
 
 module.exports = configure(function (/* ctx */) {
   return {
@@ -21,10 +22,7 @@ module.exports = configure(function (/* ctx */) {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
-    boot: [
-      
-      
-    ],
+    boot: ["axios", "firebase", "constants"],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
     css: [
@@ -50,7 +48,18 @@ module.exports = configure(function (/* ctx */) {
       target: {
         browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
         node: 'node20',
-  
+      },
+      env: {
+        VUE_ROUTER_MODE: process.env.VUE_ROUTER_MODE || undefined,
+        DEBUGGING: process.env.NODE_ENV !== "production",
+        APP_VERSION: PACKAGE.version,
+        APP_ID: process.env.APP_ID ,
+        API_KEY: process.env.API_KEY ,
+        AUTH_DOMAIN: process.env.AUTH_DOMAIN ,
+        PROJECT_ID: process.env.PROJECT_ID ,
+        STORAGE_BUCKET: process.env.STORAGE_BUCKET,
+        MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
+        MEASUREMENT_ID: process.env.MEASUREMENT_ID,
       },
 
       vueRouterMode: 'hash', // available values: 'hash', 'history'
@@ -62,7 +71,6 @@ module.exports = configure(function (/* ctx */) {
 
       // publicPath: '/',
       // analyze: true,
-      env: {},
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
