@@ -4,14 +4,14 @@
       <q-img :src="item.image" class="product-card-img" />
       <q-card-section>
         <q-btn fab color="primary" icon="place" class="absolute"
-          style="top: 0; right: 12px; transform: translateY(-50%);" @click="location(item)" />
+          style="top: 0; right: 12px; transform: translateY(-50%);" @click="located(item)" />
         <div class="row no-wrap items-center">
           <div class="col text-h6 ellipsis">{{ item.name }}</div>
           <div class="col-auto text-grey text-caption q-pt-md row no-wrap items-center">
             <q-icon name="place" />250 ft
           </div>
         </div>
-        <q-rating v-model="item.stars" :max="5" size="32px" />
+        <q-rating v-model="item.stars" :max="5" size="32px" @click="vote(item)"/>
       </q-card-section>
       <q-card-section class="q-pt-none product-card-description">
         <div class="text-subtitle1"> {{ item.title }}</div>
@@ -28,19 +28,35 @@
 
 <script>
 import { ref } from 'vue'
+import { logGAEvent } from 'boot/firebase'
+import { analytics_events } from 'src/services/analytics'
+import kebabCase from 'lodash/kebabCase'
 
 export default {
   name: 'ProductsComponent',
   setup() {
     const avg = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length
     const reserve = (item) => {
-      console.log('Reserve', item)
+      console.log(`Event ${item.name}`, item)
+      logGAEvent(analytics_events.reserve, {
+        item: kebabCase(item.name)
+      });
     }
 
-    const location = (item) => {
-      console.log('Location', item)
+    const located = (item) => {
+      console.log(`Located ${item.name}`, item)
+      logGAEvent(analytics_events.located, {
+        item: kebabCase(item.name)
+      });
     }
 
+    const vote = (item) => {
+      console.log(`Vote ${item.name}`, item)
+      logGAEvent(analytics_events.vote, {
+        item: kebabCase(item.name)
+      });
+    }
+    
     const items = ref([
       {
         name: "Elkika Ilmenau",
@@ -72,7 +88,8 @@ export default {
       avg,
       items,
       reserve,
-      location
+      located,
+      vote
     }
 
   }

@@ -46,17 +46,17 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
-        browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
+        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
         node: 'node20',
       },
       env: {
         VUE_ROUTER_MODE: process.env.VUE_ROUTER_MODE || undefined,
         DEBUGGING: process.env.NODE_ENV !== "production",
         APP_VERSION: PACKAGE.version,
-        APP_ID: process.env.APP_ID ,
-        API_KEY: process.env.API_KEY ,
-        AUTH_DOMAIN: process.env.AUTH_DOMAIN ,
-        PROJECT_ID: process.env.PROJECT_ID ,
+        APP_ID: process.env.APP_ID,
+        API_KEY: process.env.API_KEY,
+        AUTH_DOMAIN: process.env.AUTH_DOMAIN,
+        PROJECT_ID: process.env.PROJECT_ID,
         STORAGE_BUCKET: process.env.STORAGE_BUCKET,
         MESSAGING_SENDER_ID: process.env.MESSAGING_SENDER_ID,
         MEASUREMENT_ID: process.env.MEASUREMENT_ID,
@@ -84,7 +84,11 @@ module.exports = configure(function (/* ctx */) {
         ['vite-plugin-checker', {
           eslint: {
             lintCommand: 'eslint "./**/*.{js,mjs,cjs,vue}"'
-          }
+          },
+          lodash: {
+            transform: "lodash/${member}",
+            preventFullImport: true
+          },
         }, { server: false }]
       ]
     },
@@ -132,7 +136,7 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/developing-ssr/configuring-ssr
     ssr: {
       // ssrPwaHtmlFilename: 'offline.html', // do NOT use index.html as name!
-                                          // will mess up SSR
+      // will mess up SSR
 
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
@@ -143,7 +147,7 @@ module.exports = configure(function (/* ctx */) {
       // manualPostHydrationTrigger: true,
 
       prodPort: 3000, // The default port that the production server should use
-                      // (gets superseded if process.env.PORT is specified at runtime)
+      // (gets superseded if process.env.PORT is specified at runtime)
 
       middlewares: [
         'render' // keep this as last one
