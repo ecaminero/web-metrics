@@ -2,7 +2,6 @@
     "ci": {
       "collect": {
         "settings": {
-          "plugins": ["lighthouse-plugin-field-performance"],
           "chromeFlags": "--disable-gpu --no-sandbox --no-zygote"
 
         }
