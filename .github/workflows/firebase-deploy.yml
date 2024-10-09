@@ -27,16 +27,26 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
-      - name: Install dependencies
+      - name: Install dependencies and build
         env:
-          API_KEY: "AIzaSyAL5cNWwfnYMnKVtIcDXL-ycHsjGvtnqRs"
-          AUTH_DOMAIN: "testing-40917.firebaseapp.com"
-          PROJECT_ID: "testing-40917"
-          STORAGE_BUCKET: "testing-40917.appspot.com"
-          APP_ID: "1:60050837084:web:9350a34b710c5ced67e099"
-          MESSAGING_SENDER_ID: "60050837084"
-          MEASUREMENT_ID: "G-MBHSN5X03W"
-        run: pnpm add -g @quasar/cli && pnpm install && quasar build
+          API_KEY: ${{ secrets.API_KEY }}
+          AUTH_DOMAIN: ${{ secrets.AUTH_DOMAIN }}
+          PROJECT_ID: ${{ secrets.PROJECT_ID }}
+          STORAGE_BUCKET: ${{ secrets.STORAGE_BUCKET }}
+          APP_ID: ${{ secrets.APP_ID }}
+          MESSAGING_SENDER_ID: ${{ secrets.MESSAGING_SENDER_ID }}
+          MEASUREMENT_ID: ${{ secrets.MEASUREMENT_ID }}
+        run: |
+          pnpm add -g @quasar/cli
+          pnpm install
+          echo "API_KEY=$API_KEY" >> .env
+          echo "AUTH_DOMAIN=$AUTH_DOMAIN" >> .env
+          echo "PROJECT_ID=$PROJECT_ID" >> .env
+          echo "STORAGE_BUCKET=$STORAGE_BUCKET" >> .env
+          echo "APP_ID=$APP_ID" >> .env
+          echo "MESSAGING_SENDER_ID=$MESSAGING_SENDER_ID" >> .env
+          echo "MEASUREMENT_ID=$MEASUREMENT_ID" >> .env
+          quasar build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
