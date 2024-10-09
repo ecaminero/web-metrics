@@ -24,6 +24,11 @@
       </q-card-actions>
     </q-card>
   </div>
+  <ReserveDialogComponent
+    v-model="openReserveDialog"
+    :title="`Reserve on${selectedItem?.name || ''}`"
+    :onConfirmAction="handleReserve"
+    :item="selectedItem"/>
 </template>
 
 <script>
@@ -31,16 +36,34 @@ import { ref } from 'vue'
 import { logGAEvent } from 'boot/firebase'
 import { analytics_events } from 'src/services/analytics'
 import kebabCase from 'lodash/kebabCase'
+import ReserveDialogComponent from 'components/ReserveDialog.vue'
 
 export default {
   name: 'ProductsComponent',
+  components: {
+    ReserveDialogComponent
+  },
   setup() {
     const avg = (arr) => arr.reduce((a, b) => a + b, 0) / arr.length
+    const selectedItem = ref(null)
+    const openReserveDialog = ref(false)
+    const closeReserveDialog = ref(false)
+    
     const reserve = (item) => {
-      console.log(`Event ${item.name}`, item)
-      logGAEvent(analytics_events.reserve, {
-        item: kebabCase(item.name)
-      });
+      selectedItem.value = item
+      openReserveDialog.value = true
+    }
+
+    const handleReserve = (userData) => {
+      console.log('Reserve By' , userData)
+      if (selectedItem.value) {
+        console.log(`Reserving ${selectedItem.value.name}`, selectedItem.value)
+        logGAEvent(analytics_events.reserve, {
+          item: kebabCase(selectedItem.value.name)
+        });
+      }
+      openReserveDialog.value = false
+      selectedItem.value = null
     }
 
     const located = (item) => {
@@ -87,9 +110,13 @@ export default {
     return {
       avg,
       items,
-      reserve,
+      handleReserve,
       located,
-      vote
+      vote,
+      selectedItem,
+      closeReserveDialog,
+      openReserveDialog,
+      reserve
     }
 
   }
