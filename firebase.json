@@ -1,11 +1,14 @@
 {
     "hosting": {
+        "target": "testing-40917",
         "public": "dist/spa",
         "ignore": [
             "**/.*",
             "firebase.json",
             "**/node_modules/**",
-            "makefile"
+            "makefile",
+            "Makefile"
+
         ],
         "rewrites": [
             {

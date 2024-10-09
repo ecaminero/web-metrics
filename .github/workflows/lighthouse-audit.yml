@@ -5,7 +5,7 @@ name: Deploy to Firebase Hosting on merge
 on:
   push:
     branches:
-      - better
+      - main
 env:
   PNPM_VERSION: '9.1.4'
   env_var: 'dev'
@@ -41,5 +41,5 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TESTING_40917 }}"
-          channelId: preview
+          channelId: live
           projectId: testing-40917

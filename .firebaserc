@@ -1,5 +1,16 @@
 {
   "projects": {
     "default": "testing-40917"
-  }
+  },
+  "targets": {
+    "testing-40917": {
+      "hosting": {
+        "testing-40917": [
+          "testing-40917"
+        ]
+      }
+    }
+  },
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
