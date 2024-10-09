@@ -2,7 +2,7 @@ name: Lighthouse CI
 on:
   push:
     branches:
-      - better
+      - '*'  # Ejecutar en cualquier rama
 
 env:
   PNPM_VERSION: '9.1.4'
@@ -20,8 +20,8 @@ jobs:
         with:
           urls: |
             https://testing-40917.web.app/#/
-          uploadArtifacts: true # save results as an action artifacts
-          temporaryPublicStorage: true # upload lighthouse report to the temporary storage
+          uploadArtifacts: true
+          temporaryPublicStorage: true
           budgetPath: .github/lighthouse/budget.json
           configPath: .github/lighthouse/lighthouserc.json
           runs: 3
