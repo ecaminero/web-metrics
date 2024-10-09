@@ -32,7 +32,7 @@ jobs:
       - name: Format lighthouse result
         id: lighthouse_result
         if: ${{ always() }}
-        uses: actions/github-script@v4
+        uses: actions/github-script@v7
         with:
             github-token: ${{secrets.GITHUB_TOKEN}}
             script: |
@@ -63,7 +63,7 @@ jobs:
       - name: Format budget result
         id: budget_result
         if: ${{ always() }}
-        uses: actions/github-script@v4
+        uses: actions/github-script@v7
         with:
             github-token: ${{secrets.GITHUB_TOKEN}}
             script: |
@@ -88,7 +88,7 @@ jobs:
       - name: Add Lighthouse comment to PR
         id: lighthouse_comment_to_pr
         if: ${{ always() }}
-        uses: marocchino/sticky-pull-request-comment@v1
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             number: ${{ github.event.pull_request.number }}
@@ -98,7 +98,7 @@ jobs:
       - name: Add Budget comment to PR
         id: budget_comment_to_pr
         if: ${{ always() }}
-        uses: marocchino/sticky-pull-request-comment@v1
+        uses: marocchino/sticky-pull-request-comment@v2
         with:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
             number: ${{ github.event.pull_request.number }}
